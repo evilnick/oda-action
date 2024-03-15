@@ -20,28 +20,28 @@ jobs:
           script: |
             console.log(`Event: ${github.event}`);
             console.log(`ctx: ${context}`);
-            const { ctx1, GitHub } = require('@actions/github');
-            const github = new GitHub(process.env.GITHUB_TOKEN);
-            const { owner, repo, issue } = ctx1.payload;
-            const issueDetails = await github.issues.get({
-              owner: ctx1.repo.owner,
-              repo: ctx1.repo.repo,
-              issue_number: issue.number
-            });
-            console.log(issueDetails.data);
-            return issueDetails.data;
-
-      - name: Create Issue in ODA Repository
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.ODA_REPO_TOKEN }}
-          script: |
-            const { context: ctx, GitHub } = require('@actions/github');
-            const github = new GitHub(process.env.GITHUB_TOKEN);
-            const issueData = await github.issues.create({
-              owner: 'canonical',  // The owner of the upstream repo
-              repo: 'open-documentation-academy',    // Replace 'target-repo' with the name of the target repository
-              title: '${{ steps.get_issue.outputs.title }}',
-              body: '${{ steps.get_issue.outputs.body }}\n\nOriginal Issue: [Original Issue](${{ steps.get_issue.outputs.html_url }})'
-            });
-            console.log(`Issue created: ${issueData.data.html_url}`);
+#           const { ctx1, GitHub } = require('@actions/github');
+#           const github = new GitHub(process.env.GITHUB_TOKEN);
+#            const { owner, repo, issue } = ctx1.payload;
+#            const issueDetails = await github.issues.get({
+#              owner: ctx1.repo.owner,
+#              repo: ctx1.repo.repo,
+#              issue_number: issue.number
+#            });
+#            console.log(issueDetails.data);
+#            return issueDetails.data;
+#
+#      - name: Create Issue in ODA Repository
+#        uses: actions/github-script@v4
+#        with:
+#          github-token: ${{ secrets.ODA_REPO_TOKEN }}
+#          script: |
+##            const { context: ctx, GitHub } = require('@actions/github');
+#            const github = new GitHub(process.env.GITHUB_TOKEN);
+#            const issueData = await github.issues.create({
+#              owner: 'canonical',  // The owner of the upstream repo
+#              repo: 'open-documentation-academy',    // Replace 'target-repo' with the name of the target repository
+#              title: '${{ steps.get_issue.outputs.title }}',
+#              body: '${{ steps.get_issue.outputs.body }}\n\nOriginal Issue: [Original Issue](${{ steps.get_issue.outputs.html_url }})'
+#            });
+#            console.log(`Issue created: ${issueData.data.html_url}`);

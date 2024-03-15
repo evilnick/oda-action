@@ -6,6 +6,9 @@ on:
 jobs:
     pull-request-test:
         runs-on: ubuntu-latest
+              permissions:
+        contents: write
+        issues: write
         steps:
           - uses: actions/github-script@v7
             with:
