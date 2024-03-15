@@ -11,9 +11,6 @@ jobs:
     permissions:
       contents: write
       issues: write
-      outputs:
-        output1: ${{ steps.get_issue.outputs.test }}
-        output2: ${{ steps.step2.outputs.test }}
     steps:
       - name: Get Issue Details
         uses: actions/github-script@v7
