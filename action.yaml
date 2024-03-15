@@ -1,0 +1,42 @@
+name: Duplicate Issue For OpenDocumentationAcademy
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  duplicate-issue:
+    if: ${{ github.event.label.name == 'OpenDocumentationAcademy' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Issue Details
+        uses: actions/github-script@v4
+        id: get_issue
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { context, GitHub } = require('@actions/github');
+            const github = new GitHub(process.env.GITHUB_TOKEN);
+            const { owner, repo, issue } = context.payload;
+            const issueDetails = await github.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number
+            });
+            console.log(issueDetails.data);
+            return issueDetails.data;
+
+      - name: Create Issue in Another Repository
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.TARGET_REPO_TOKEN }}
+          script: |
+            const { context, GitHub } = require('@actions/github');
+            const github = new GitHub(process.env.GITHUB_TOKEN);
+            const issueData = await github.issues.create({
+              owner: 'target-owner',  // Replace 'target-owner' with the owner of the target repository
+              repo: 'target-repo',    // Replace 'target-repo' with the name of the target repository
+              title: '${{ steps.get_issue.outputs.title }}',
+              body: '${{ steps.get_issue.outputs.body }}'
+            });
+            console.log(`Issue created: ${issueData.data.html_url}`);
