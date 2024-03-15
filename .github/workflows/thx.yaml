@@ -1,5 +1,6 @@
 name: kthxbye
 on:
+    workflow_dispatch:
     issues:
       types: [opened]
   

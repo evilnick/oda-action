@@ -1,5 +1,6 @@
 name: View context attributes
 on:
+    workflow_dispatch:
     issues:
         types: [opened, edited, milestoned]
 jobs:
