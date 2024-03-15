@@ -15,12 +15,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { context, GitHub } = require('@actions/github');
+            const { ctx1, GitHub } = require('@actions/github');
             const github = new GitHub(process.env.GITHUB_TOKEN);
-            const { owner, repo, issue } = context.payload;
+            const { owner, repo, issue } = ctx1.payload;
             const issueDetails = await github.issues.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: ctx1.repo.owner,
+              repo: ctx1.repo.repo,
               issue_number: issue.number
             });
             console.log(issueDetails.data);
