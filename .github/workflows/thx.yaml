@@ -1,8 +1,9 @@
+name: kthxbye
 on:
     issues:
       types: [opened]
   
-  jobs:
+jobs:
     comment:
       runs-on: ubuntu-latest
       steps:

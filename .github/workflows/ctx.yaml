@@ -1,4 +1,11 @@
-- name: View context attributes
-  uses: actions/github-script@v7
-  with:
-    script: console.log(context)
+name: View context attributes
+on:
+    issues:
+        types: [opened, edited, milestoned]
+jobs:
+    pull-request-test:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/github-script@v7
+            with:
+              script: console.log(context)
