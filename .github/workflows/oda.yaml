@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Issue Details
-        uses: actions/github-script@v4
+        uses: actions/github-script@v7
         id: get_issue
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,15 +26,15 @@ jobs:
             console.log(issueDetails.data);
             return issueDetails.data;
 
-      - name: Create Issue in Another Repository
+      - name: Create Issue in ODA Repository
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.ODA_REPO_TOKEN }}
           script: |
-            const { context, GitHub } = require('@actions/github');
+            const { context2, GitHub } = require('@actions/github');
             const github = new GitHub(process.env.GITHUB_TOKEN);
             const issueData = await github.issues.create({
-              owner: 'canonical',  // Replace 'target-owner' with the owner of the target repository
+              owner: 'canonical',  // The owner of the upstream repo
               repo: 'open-documentation-academy',    // Replace 'target-repo' with the name of the target repository
               title: '${{ steps.get_issue.outputs.title }}',
               body: '${{ steps.get_issue.outputs.body }}\n\nOriginal Issue: [Original Issue](${{ steps.get_issue.outputs.html_url }})'
