@@ -19,7 +19,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             echo `Event: ${github.event}`);
-            echo `ctx: ${context}`);
+            echo `ctx: ${context}`;
 
 #           const { ctx1, GitHub } = require('@actions/github');
 #           const github = new GitHub(process.env.GITHUB_TOKEN);
